@@ -20,7 +20,7 @@ class Student:
 
 # Open Excel file
 wb = openpyxl.load_workbook('students.xlsx')
-groups = ["Лист1"]
+groups = ["Задачи"]
 students = {}
 for group in groups:
     sheet = wb[group]  # Access sheet by name
@@ -45,7 +45,10 @@ lk_work = [
     {"link":"https://informatics.msk.ru/mod/statements/view.php?id=95930&standing", "table":"", "row":4, "name":"Lin"},
     {"link":"https://informatics.msk.ru/mod/statements/view.php?id=95931&standing", "table":"", "row":5, "name":"If"},
     {"link":"https://informatics.msk.ru/mod/statements/view.php?id=103033&standing", "table":"", "row":6, "name":"While"},
-    {"link":"https://informatics.msk.ru/mod/statements/view.php?id=103034&standing", "table":"", "row":7, "name":"For"}
+    {"link":"https://informatics.msk.ru/mod/statements/view.php?id=103034&standing", "table":"", "row":7, "name":"For"},
+    {"link":"https://informatics.msk.ru/mod/statements/view.php?id=88939&standing", "table":"", "row":8, "name":"Array"},
+    {"link":"https://informatics.msk.ru/mod/statements/view.php?id=96495&standing", "table":"", "row":9, "name":"Matrix"},
+    {"link": "https://informatics.msk.ru/mod/statements/view.php?id=88099&standing", "table": "", "row": 10, "name": "Problems"}
 ]
 
 student_data = get_table(lk_work)

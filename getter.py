@@ -5,6 +5,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
+
 
 def get_tasks_count(table):
     lines = table.split("<tr>")
@@ -47,26 +49,34 @@ def get_table(url_table):
     username = "pavlov_bot"
     password = "QWErty_1"
     url_login = "https://informatics.msk.ru/login/index.php"
-    #url_table = 'https://informatics.msk.ru/mod/statements/view.php?id=91494&standing'
 
     # navigate to the target webpage
     driver.get(url_login)
-
+    #time.sleep(5)
     driver.find_element("id", "username").send_keys(username)
     # find password input field and insert password as well
     driver.find_element("id", "password").send_keys(password)
     # click login button
     driver.find_element("id", "loginbtn").click()
 
-    time.sleep(5)
+    time.sleep(2)
     print("logged")
     ret_data = []
     for job in url_table:
         print("Parsing ", job["link"])
         driver.get(job["link"])
     #print(driver.text)
-        time.sleep(5)
+        #time.sleep(5)
         job_data = []
+        try:
+            element = WebDriverWait(driver, 20).until(
+                #EC.element_to_be_clickable((By.ID, "MonitorResult"))
+                EC.presence_of_element_located((By.CSS_SELECTOR, "tbody tr"))
+            )
+        except TimeoutException:
+            print("Элемент не загрузился за 20 секунд")
+            exit(-1)
+
         data = driver.find_element("id", "MonitorResult")
         content = data.get_attribute('innerHTML')
         tasks_count = get_tasks_count(content)
